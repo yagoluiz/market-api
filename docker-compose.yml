@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  market-api:
+    container_name: market-api
+    image: market-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '5001:80'
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DB_URL=market-db
+      - DB_PORT=5432
+      - DB_NAME=market
+      - DB_USER=postgres
+      - DB_USER_PASSWORD=postgres
+    networks:
+      - market-network
+    depends_on:
+      - market-db
+
+  market-db:
+    container_name: market-db
+    image: postgres:13-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - market-network
+
+networks:
+  market-network:
+    name: market-network
+    driver: bridge
+
+volumes:
+  postgres:
