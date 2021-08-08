@@ -41,6 +41,7 @@ namespace Market.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDbContextMigration();
+            app.UseDbContextSeedMigration();
 
             if (env.IsDevelopment())
             {

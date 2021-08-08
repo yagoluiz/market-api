@@ -31,6 +31,13 @@ namespace Market.Infra.Contexts
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            SetDateEntity();
+
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
         private void SetDateEntity()
         {
             foreach (var entry in ChangeTracker.Entries())

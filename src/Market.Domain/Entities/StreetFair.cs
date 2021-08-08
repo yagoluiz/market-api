@@ -10,8 +10,8 @@ namespace Market.Domain.Entities
 
         public StreetFair(
             string name,
-            int censusSector,
-            int censusGrouping,
+            long censusSector,
+            long censusGrouping,
             int districtCode,
             string district,
             int subCityHallCode,
@@ -48,8 +48,8 @@ namespace Market.Domain.Entities
         public StreetFair(
             int id,
             string name,
-            int censusSector,
-            int censusGrouping,
+            long censusSector,
+            long censusGrouping,
             int districtCode,
             string district,
             int subCityHallCode,
@@ -86,8 +86,8 @@ namespace Market.Domain.Entities
 
         public int Id { get; }
         public string Name { get; }
-        public int CensusSector { get; }
-        public int CensusGrouping { get; }
+        public long CensusSector { get; }
+        public long CensusGrouping { get; }
         public int DistrictCode { get; }
         public string District { get; }
         public int SubCityHallCode { get; }

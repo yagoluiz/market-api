@@ -25,16 +25,16 @@ namespace Market.Infra.Mappings
                 .IsRequired();
 
             builder.Property(property => property.District)
-                .HasColumnType("varchar(30)")
-                .HasMaxLength(30)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(property => property.SubCityHallCode)
                 .IsRequired();
 
             builder.Property(property => property.SubCityHall)
-                .HasColumnType("varchar(40)")
-                .HasMaxLength(40)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(property => property.Region5)
@@ -53,22 +53,22 @@ namespace Market.Infra.Mappings
                 .IsRequired();
 
             builder.Property(property => property.Address)
-                .HasColumnType("varchar(40)")
-                .HasMaxLength(40)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(property => property.AddressNumber)
-                .HasColumnType("varchar(10)")
-                .HasMaxLength(10);
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50);
 
             builder.Property(property => property.Neighborhood)
-                .HasColumnType("varchar(20)")
-                .HasMaxLength(20)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(property => property.AddressDetails)
-                .HasColumnType("varchar(30)")
-                .HasMaxLength(30);
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50);
 
             builder.Property(property => property.Longitude)
                 .IsRequired();
@@ -83,9 +83,6 @@ namespace Market.Infra.Mappings
                 .IsRequired();
 
             builder.HasKey(key => key.Id);
-
-            builder.HasIndex(index => index.DistrictCode)
-                .IsUnique();
         }
     }
 }

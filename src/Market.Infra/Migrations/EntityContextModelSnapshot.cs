@@ -29,26 +29,26 @@ namespace Market.Infra.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("address");
 
                     b.Property<string>("AddressDetails")
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("address_details");
 
                     b.Property<string>("AddressNumber")
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("address_number");
 
-                    b.Property<int>("CensusGrouping")
-                        .HasColumnType("integer")
+                    b.Property<long>("CensusGrouping")
+                        .HasColumnType("bigint")
                         .HasColumnName("census_grouping");
 
-                    b.Property<int>("CensusSector")
-                        .HasColumnType("integer")
+                    b.Property<long>("CensusSector")
+                        .HasColumnType("bigint")
                         .HasColumnName("census_sector");
 
                     b.Property<DateTime>("CreatedDate")
@@ -57,8 +57,8 @@ namespace Market.Infra.Migrations
 
                     b.Property<string>("District")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("district");
 
                     b.Property<int>("DistrictCode")
@@ -81,8 +81,8 @@ namespace Market.Infra.Migrations
 
                     b.Property<string>("Neighborhood")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("neighborhood");
 
                     b.Property<string>("Region5")
@@ -105,8 +105,8 @@ namespace Market.Infra.Migrations
 
                     b.Property<string>("SubCityHall")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("sub_city_hall");
 
                     b.Property<int>("SubCityHallCode")
@@ -119,10 +119,6 @@ namespace Market.Infra.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_street_fairs");
-
-                    b.HasIndex("DistrictCode")
-                        .IsUnique()
-                        .HasDatabaseName("ix_street_fairs_district_code");
 
                     b.ToTable("street_fairs");
                 });
