@@ -8,8 +8,12 @@ namespace Market.Infra.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "public");
+
             migrationBuilder.CreateTable(
-                name: "street_fairs",
+                name: "street_fair",
+                schema: "public",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -35,14 +39,15 @@ namespace Market.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_street_fairs", x => x.id);
+                    table.PrimaryKey("pk_street_fair", x => x.id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "street_fairs");
+                name: "street_fair",
+                schema: "public");
         }
     }
 }

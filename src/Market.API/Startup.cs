@@ -97,7 +97,7 @@ namespace Market.API
         private void AddDatabaseContext(IServiceCollection services)
         {
             services.AddDbContext<EntityContext>(options =>
-                options.UseNpgsql(DatabaseConnectionString).UseSnakeCaseNamingConvention());
+                options.UseNpgsql(DatabaseConnectionString));
         }
 
         private void AddRepositoriesScopes(IServiceCollection services)

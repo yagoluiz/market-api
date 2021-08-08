@@ -16,7 +16,7 @@ namespace Market.Infra.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Market.Domain.Entities.StreetFair", b =>
@@ -117,10 +117,9 @@ namespace Market.Infra.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_date");
 
-                    b.HasKey("Id")
-                        .HasName("pk_street_fairs");
+                    b.HasKey("Id");
 
-                    b.ToTable("street_fairs");
+                    b.ToTable("street_fair", "public");
                 });
 #pragma warning restore 612, 618
         }
