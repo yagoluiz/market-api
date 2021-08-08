@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using Market.API.Extensions;
+using Market.API.Middleware;
 using Market.API.Services;
 using Market.API.Services.Interfaces;
 using Market.Domain.Interfaces.Repositories;
@@ -86,6 +87,10 @@ namespace Market.API
 
             app.UseRouting();
             app.UseAuthorization();
+            app.UseExceptionHandler(new ExceptionHandlerOptions
+            {
+                ExceptionHandler = new ErrorHandlerMiddleware(env).Invoke
+            });
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
