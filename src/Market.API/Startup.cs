@@ -1,4 +1,10 @@
+using System;
+using System.IO;
+using System.IO.Compression;
+using System.Reflection;
 using Market.API.Extensions;
+using Market.API.Services;
+using Market.API.Services.Interfaces;
 using Market.Domain.Interfaces.Repositories;
 using Market.Domain.Interfaces.UnitOfWork;
 using Market.Infra.Contexts;
@@ -6,6 +12,8 @@ using Market.Infra.Repositories;
 using Market.Infra.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,13 +37,39 @@ namespace Market.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddResponseCompression();
+            services.Configure<GzipCompressionProviderOptions>(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Market.API", Version = "v1" });
+                options.Level = CompressionLevel.Fastest;
+            });
+            services.Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; });
+            services.AddSwaggerGen(options =>
+            {
+                static string SetCustomSchemaIds(Type selector)
+                {
+                    var className = selector.Name;
+
+                    if (className.EndsWith("ViewModel"))
+                        className = className.Replace("ViewModel", string.Empty);
+                    else if (className.Contains("`"))
+                        className = className.Split('`')[0].Replace("ViewModel", string.Empty) +
+                                    "_" +
+                                    selector.GenericTypeArguments[0].Name.Replace("ViewModel", string.Empty);
+
+                    return className;
+                }
+
+                options.CustomSchemaIds(SetCustomSchemaIds);
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Market API", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
             });
 
             AddDatabaseContext(services);
             AddRepositoriesScopes(services);
+            AddServicesScopes(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,7 +84,6 @@ namespace Market.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Market.API v1"));
             }
 
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
@@ -66,6 +99,11 @@ namespace Market.API
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IStreetFairRepository, StreetFairRepository>();
+        }
+
+        private void AddServicesScopes(IServiceCollection services)
+        {
+            services.AddScoped<IStreetFairService, StreetFairService>();
         }
     }
 }

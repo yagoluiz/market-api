@@ -15,6 +15,8 @@ namespace Market.Infra.Seeds
     {
         public static void RunSeed(EntityContext context)
         {
+            if (context.StreetFairs.Any()) return;
+
             AddStreetFairs(context);
         }
 
