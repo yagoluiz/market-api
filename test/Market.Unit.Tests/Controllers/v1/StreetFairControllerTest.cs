@@ -32,5 +32,16 @@ namespace Market.Unit.Tests.Controllers.v1
 
             Assert.IsType<OkObjectResult>(result.Result);
         }
+
+        [Fact(DisplayName = "Create street fairs when is success")]
+        public async Task CreateStreetFairWhenIsSuccessTest()
+        {
+            var request = StreetFairBuilder.StreetFairCreateRequest;
+
+            var controller = new StreetFairController(_streetFairServiceMock.Object);
+            var result = await controller.CreateStreetFairAsync(request);
+
+            Assert.IsType<CreatedResult>(result);
+        }
     }
 }

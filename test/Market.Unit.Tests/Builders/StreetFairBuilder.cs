@@ -11,6 +11,10 @@ namespace Market.Unit.Tests.Builders
             new AutoFaker<StreetFairFilterRequestViewModel>()
                 .Generate();
 
+        public static StreetFairCreateRequestViewModel StreetFairCreateRequest =>
+            new AutoFaker<StreetFairCreateRequestViewModel>()
+                .Generate();
+
         public static PaginationResponseViewModel<StreetFairResponseViewModel>
             PaginationStreetFairResponse =>
             new AutoFaker<PaginationResponseViewModel<StreetFairResponseViewModel>>()

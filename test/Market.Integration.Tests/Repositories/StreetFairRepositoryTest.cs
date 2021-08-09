@@ -19,7 +19,7 @@ namespace Market.Integration.Tests.Repositories
         }
 
         [Fact(DisplayName = "Insert and get all street fairs by pagination records in database when filter not exist")]
-        public async Task GetAllStreetFairsByPaginationRecordsInDatabaseWhenFiltersNotExistTest()
+        public async Task InsertAndGetAllStreetFairsByPaginationRecordsInDatabaseWhenFiltersNotExistTest()
         {
             var context = _databaseFixture.CreateContext;
 
@@ -39,7 +39,7 @@ namespace Market.Integration.Tests.Repositories
         }
 
         [Fact(DisplayName = "Insert and get all street fairs by pagination records in database when filter exist")]
-        public async Task GetAllStreetFairsByPaginationRecordsInDatabaseWhenNotFilterExistTest()
+        public async Task InsertAndGetAllStreetFairsByPaginationRecordsInDatabaseWhenNotFilterExistTest()
         {
             var context = _databaseFixture.CreateContext;
 
@@ -64,7 +64,7 @@ namespace Market.Integration.Tests.Repositories
 
         [Fact(DisplayName =
             "Insert and get all street fairs by pagination records in database when more than one filter exist")]
-        public async Task GetAllStreetFairsByPaginationRecordsInDatabaseWhenMoreThanOneFilterExistTest()
+        public async Task InsertAndGetAllStreetFairsByPaginationRecordsInDatabaseWhenMoreThanOneFilterExistTest()
         {
             var context = _databaseFixture.CreateContext;
 
@@ -87,6 +87,24 @@ namespace Market.Integration.Tests.Repositories
 
             Assert.Contains(streetFairs, streetFair => streetFair.Name == nameFilter);
             Assert.Contains(streetFairs, streetFair => streetFair.Region5 == region5Filter);
+        }
+
+        [Fact(DisplayName = "Insert and get street fair by register records in database")]
+        public async Task InsertAndGetAllStreetFairByRegisterInDatabaseTest()
+        {
+            var context = _databaseFixture.CreateContext;
+
+            var unitOfWork = new UnitOfWork(context);
+            var repository = new StreetFairRepository(context);
+
+            var builder = StreetFairBuilder.CreateStreetFair;
+
+            await repository.AddAsync(builder);
+            await unitOfWork.CommitAsync();
+
+            var streetFair = await repository.GetByRegister(builder.Register);
+
+            Assert.NotNull(streetFair);
         }
     }
 }
