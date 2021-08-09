@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Market.Domain.Entities.Filters;
 using Market.Infra.Repositories;
@@ -17,8 +18,8 @@ namespace Market.Integration.Tests.Repositories
             _databaseFixture = databaseFixture;
         }
 
-        [Fact(DisplayName = "Insert and get all street fairs by pagination records in database when not exist filters")]
-        public async Task GetAllStreetFairsByPaginationRecordsInDatabaseWhenNotExistFiltersTest()
+        [Fact(DisplayName = "Insert and get all street fairs by pagination records in database when filter not exist")]
+        public async Task GetAllStreetFairsByPaginationRecordsInDatabaseWhenFiltersNotExistTest()
         {
             var context = _databaseFixture.CreateContext;
 
@@ -28,13 +29,64 @@ namespace Market.Integration.Tests.Repositories
             await repository.AddRangeAsync(StreetFairBuilder.CreateStreetFairs);
             await unitOfWork.CommitAsync();
 
-            var financialExchanges = await repository.GetAllByPaginationAsync(
+            var streetFairs = await repository.GetAllByPaginationAsync(
                 1,
                 10,
                 new StreetFairFilter(null, null, null, null)
             );
 
-            Assert.NotEmpty(financialExchanges);
+            Assert.NotEmpty(streetFairs);
+        }
+
+        [Fact(DisplayName = "Insert and get all street fairs by pagination records in database when filter exist")]
+        public async Task GetAllStreetFairsByPaginationRecordsInDatabaseWhenNotFilterExistTest()
+        {
+            var context = _databaseFixture.CreateContext;
+
+            var unitOfWork = new UnitOfWork(context);
+            var repository = new StreetFairRepository(context);
+
+            var builder = StreetFairBuilder.CreateStreetFairs.ToList();
+
+            await repository.AddRangeAsync(builder);
+            await unitOfWork.CommitAsync();
+
+            var nameFilter = builder.First().Name;
+
+            var streetFairs = await repository.GetAllByPaginationAsync(
+                1,
+                10,
+                new StreetFairFilter(nameFilter, null, null, null)
+            );
+
+            Assert.Contains(streetFairs, streetFair => streetFair.Name == nameFilter);
+        }
+
+        [Fact(DisplayName =
+            "Insert and get all street fairs by pagination records in database when more than one filter exist")]
+        public async Task GetAllStreetFairsByPaginationRecordsInDatabaseWhenMoreThanOneFilterExistTest()
+        {
+            var context = _databaseFixture.CreateContext;
+
+            var unitOfWork = new UnitOfWork(context);
+            var repository = new StreetFairRepository(context);
+
+            var builder = StreetFairBuilder.CreateStreetFairs.ToList();
+
+            await repository.AddRangeAsync(builder);
+            await unitOfWork.CommitAsync();
+
+            var nameFilter = builder.First().Name;
+            var region5Filter = builder.First().Region5;
+
+            var streetFairs = await repository.GetAllByPaginationAsync(
+                1,
+                10,
+                new StreetFairFilter(nameFilter, null, region5Filter, null)
+            );
+
+            Assert.Contains(streetFairs, streetFair => streetFair.Name == nameFilter);
+            Assert.Contains(streetFairs, streetFair => streetFair.Region5 == region5Filter);
         }
     }
 }
