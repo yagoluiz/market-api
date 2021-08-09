@@ -3,6 +3,7 @@ using Market.API.Services;
 using Market.Domain.Entities.Filters;
 using Market.Domain.Interfaces.Repositories;
 using Market.Domain.Interfaces.UnitOfWork;
+using Market.Domain.Notification;
 using Market.Unit.Tests.Builders;
 using Moq;
 using Xunit;
@@ -11,6 +12,7 @@ namespace Market.Unit.Tests.Services
 {
     public class StreetFairServiceTest
     {
+        private readonly Mock<DomainNotification> _domainNotificationMock;
         private readonly Mock<IStreetFairRepository> _streetFairRepositoryMock;
         private readonly Mock<IUnitOfWork> _unitOfWorkMock;
 
@@ -18,6 +20,7 @@ namespace Market.Unit.Tests.Services
         {
             _streetFairRepositoryMock = new Mock<IStreetFairRepository>();
             _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _domainNotificationMock = new Mock<DomainNotification>();
         }
 
         [Fact(DisplayName = "Get all street fairs by pagination when items is not empty")]
@@ -39,7 +42,8 @@ namespace Market.Unit.Tests.Services
 
             var service = new StreetFairService(
                 _streetFairRepositoryMock.Object,
-                _unitOfWorkMock.Object
+                _unitOfWorkMock.Object,
+                _domainNotificationMock.Object
             );
             var result =
                 await service.GetAllStreetFairsByPaginationAsync(paginationRequest, filterRequest);
@@ -66,7 +70,8 @@ namespace Market.Unit.Tests.Services
 
             var service = new StreetFairService(
                 _streetFairRepositoryMock.Object,
-                _unitOfWorkMock.Object
+                _unitOfWorkMock.Object,
+                _domainNotificationMock.Object
             );
             var result =
                 await service.GetAllStreetFairsByPaginationAsync(paginationRequest, filterRequest);

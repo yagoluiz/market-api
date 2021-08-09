@@ -41,5 +41,11 @@ namespace Market.Infra.Repositories
                 .OrderByDescending(streetFair => streetFair.CreatedDate)
                 .PaginateAsync(page, limit);
         }
+
+        public async Task<StreetFair> GetByRegister(string register)
+        {
+            return await DbSet.AsNoTracking()
+                .FirstOrDefaultAsync(streetFair => streetFair.Register == register);
+        }
     }
 }

@@ -47,5 +47,24 @@ namespace Market.API.Controllers.v1
         {
             return Ok(await _streetFairService.GetAllStreetFairsByPaginationAsync(request, filter));
         }
+
+        /// <summary>
+        ///     Create street fair
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <response code="201">Street fair created</response>
+        /// <response code="400">Bad request errors</response>
+        /// <response code="500">Internal server error</response>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> CreateStreetFairAsync([FromBody] StreetFairCreateRequestViewModel request)
+        {
+            await _streetFairService.CreateStreetFairAsync(request);
+
+            return Created(string.Empty, null);
+        }
     }
 }

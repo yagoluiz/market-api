@@ -3,11 +3,14 @@ using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using Market.API.Extensions;
+using Market.API.Filters;
 using Market.API.Middleware;
 using Market.API.Services;
 using Market.API.Services.Interfaces;
+using Market.Domain.Interfaces.Notification;
 using Market.Domain.Interfaces.Repositories;
 using Market.Domain.Interfaces.UnitOfWork;
+using Market.Domain.Notification;
 using Market.Infra.Contexts;
 using Market.Infra.Repositories;
 using Market.Infra.UnitOfWork;
@@ -37,7 +40,7 @@ namespace Market.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add<DomainNotificationFilter>());
             services.AddResponseCompression();
             services.Configure<GzipCompressionProviderOptions>(options =>
             {
@@ -53,9 +56,8 @@ namespace Market.API
                     if (className.EndsWith("ViewModel"))
                         className = className.Replace("ViewModel", string.Empty);
                     else if (className.Contains("`"))
-                        className = className.Split('`')[0].Replace("ViewModel", string.Empty) +
-                                    "_" +
-                                    selector.GenericTypeArguments[0].Name.Replace("ViewModel", string.Empty);
+                        className =
+                            $"{className.Split('`')[0].Replace("ViewModel", string.Empty)}_{selector.GenericTypeArguments[0].Name.Replace("ViewModel", string.Empty)}";
 
                     return className;
                 }
@@ -71,6 +73,7 @@ namespace Market.API
             AddDatabaseContext(services);
             AddRepositoriesScopes(services);
             AddServicesScopes(services);
+            AddNotificationScope(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -82,7 +85,7 @@ namespace Market.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Market.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Market API v1"));
             }
 
             app.UseRouting();
@@ -109,6 +112,11 @@ namespace Market.API
         private void AddServicesScopes(IServiceCollection services)
         {
             services.AddScoped<IStreetFairService, StreetFairService>();
+        }
+
+        private void AddNotificationScope(IServiceCollection services)
+        {
+            services.AddScoped<IDomainNotification, DomainNotification>();
         }
     }
 }

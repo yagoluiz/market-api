@@ -76,7 +76,7 @@ namespace Market.API.ViewModels.Response.StreetFair
         public string District { get; }
 
         /// <summary>
-        ///     Sub city hall Code
+        ///     Sub city hall code
         /// </summary>
         public int SubCityHallCode { get; }
 

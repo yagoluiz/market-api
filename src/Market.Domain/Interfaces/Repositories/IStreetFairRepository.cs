@@ -8,5 +8,6 @@ namespace Market.Domain.Interfaces.Repositories
         : IEntityBaseRepository<StreetFair>
     {
         Task<Pagination<StreetFair>> GetAllByPaginationAsync(int page, int limit, StreetFairFilter filter);
+        Task<StreetFair> GetByRegister(string register);
     }
 }

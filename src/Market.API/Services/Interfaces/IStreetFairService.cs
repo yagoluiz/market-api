@@ -12,5 +12,7 @@ namespace Market.API.Services.Interfaces
             PaginationRequestViewModel request,
             StreetFairFilterRequestViewModel filter
         );
+
+        Task CreateStreetFairAsync(StreetFairCreateRequestViewModel request);
     }
 }
