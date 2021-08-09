@@ -104,5 +104,37 @@ namespace Market.API.Services
             ));
             await _unitOfWork.CommitAsync();
         }
+
+        public async Task<bool> UpdateStreetFairAsync(
+            StreetFairIdRequestViewModel requestId,
+            StreetFairUpdateRequestViewModel request
+        )
+        {
+            var streetFair = await _streetFairRepository.GetByIdAsync(requestId.Id);
+
+            if (streetFair == null) return false;
+            
+            _streetFairRepository.Update(new StreetFair(
+                request.Name,
+                request.CensusSector,
+                request.CensusGrouping,
+                request.DistrictCode,
+                request.District,
+                request.SubCityHallCode,
+                request.SubCityHall,
+                request.Region5,
+                request.Region8,
+                streetFair.Register,
+                request.Address,
+                request.Neighborhood,
+                request.Longitude,
+                request.Latitude,
+                request.AddressNumber,
+                request.AddressDetails
+            ));
+            await _unitOfWork.CommitAsync();
+            
+            return true;
+        }
     }
 }

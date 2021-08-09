@@ -66,5 +66,32 @@ namespace Market.API.Controllers.v1
 
             return Created(string.Empty, null);
         }
+
+        /// <summary>
+        ///     Update street fair
+        /// </summary>
+        /// <param name="requestId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <response code="204">Street fair updated</response>
+        /// <response code="400">Bad request errors</response>
+        /// <response code="404">Not found error</response>
+        /// <response code="500">Internal server error</response>
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateStreetFairAsync(
+            [FromQuery] StreetFairIdRequestViewModel requestId,
+            [FromBody] StreetFairUpdateRequestViewModel request
+        )
+        {
+            var streetFairUpdated = await _streetFairService.UpdateStreetFairAsync(requestId, request);
+
+            if (streetFairUpdated == false) return NotFound();
+
+            return NoContent();
+        }
     }
 }

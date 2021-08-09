@@ -12,12 +12,12 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Market.Domain\Market.Domain.csproj"/>
-        <ProjectReference Include="..\Market.Infra\Market.Infra.csproj"/>
+        <ProjectReference Include="..\Market.Domain\Market.Domain.csproj" />
+        <ProjectReference Include="..\Market.Infra\Market.Infra.csproj" />
     </ItemGroup>
 
 </Project>
