@@ -14,6 +14,14 @@ namespace Market.API.Services.Interfaces
         );
 
         Task CreateStreetFairAsync(StreetFairCreateRequestViewModel request);
-        Task<bool> UpdateStreetFairAsync(StreetFairIdRequestViewModel requestId, StreetFairUpdateRequestViewModel request);
+
+        Task<bool> UpdateStreetFairAsync(
+            StreetFairIdRequestViewModel requestId,
+            StreetFairUpdateRequestViewModel request
+        );
+
+        Task<bool> RemoveStreetFairAsync(
+            StreetFairRegisterRequestViewModel request
+        );
     }
 }

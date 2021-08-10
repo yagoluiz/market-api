@@ -137,5 +137,17 @@ namespace Market.API.Services
 
             return true;
         }
+
+        public async Task<bool> RemoveStreetFairAsync(StreetFairRegisterRequestViewModel request)
+        {
+            var streetFair = await _streetFairRepository.GetByRegisterAsync(request.Register);
+
+            if (streetFair == null) return false;
+
+            _streetFairRepository.Remove(streetFair);
+            await _unitOfWork.CommitAsync();
+            
+            return true;
+        }
     }
 }
