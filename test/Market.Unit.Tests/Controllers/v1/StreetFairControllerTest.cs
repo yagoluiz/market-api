@@ -71,5 +71,31 @@ namespace Market.Unit.Tests.Controllers.v1
 
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact(DisplayName = "Remove street fair when is success")]
+        public async Task RemoveStreetFairWhenIsSuccessTest()
+        {
+            var request = StreetFairBuilder.StreetFairRegisterRequest;
+
+            _streetFairServiceMock.Setup(setup =>
+                    setup.RemoveStreetFairAsync(request))
+                .ReturnsAsync(true);
+
+            var controller = new StreetFairController(_streetFairServiceMock.Object);
+            var result = await controller.RemoveStreetFairAsync(request);
+
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact(DisplayName = "Remove street fair when not is success")]
+        public async Task RemoveStreetFairWhenIsNotSuccessTest()
+        {
+            var request = StreetFairBuilder.StreetFairRegisterRequest;
+
+            var controller = new StreetFairController(_streetFairServiceMock.Object);
+            var result = await controller.RemoveStreetFairAsync(request);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }

@@ -23,6 +23,10 @@ namespace Market.Unit.Tests.Builders
             new AutoFaker<StreetFairIdRequestViewModel>()
                 .Generate();
         
+        public static StreetFairRegisterRequestViewModel StreetFairRegisterRequest =>
+            new AutoFaker<StreetFairRegisterRequestViewModel>()
+                .Generate();
+
         public static PaginationResponseViewModel<StreetFairResponseViewModel>
             PaginationStreetFairResponse =>
             new AutoFaker<PaginationResponseViewModel<StreetFairResponseViewModel>>()

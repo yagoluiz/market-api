@@ -106,7 +106,7 @@ namespace Market.Integration.Tests.Repositories
 
             Assert.NotNull(streetFair);
         }
-        
+
         [Fact(DisplayName = "Insert and get street fair by register record in database")]
         public async Task InsertAndGetStreetFairByRegisterRecordInDatabaseTest()
         {
@@ -124,7 +124,7 @@ namespace Market.Integration.Tests.Repositories
 
             Assert.NotNull(streetFair);
         }
-        
+
         [Fact(DisplayName = "Insert and update street fair record in database")]
         public async Task InsertAndUpdateStreetFairRecordInDatabaseTest()
         {
@@ -140,6 +140,25 @@ namespace Market.Integration.Tests.Repositories
             var updated = await unitOfWork.CommitAsync();
 
             Assert.True(updated);
+        }
+
+        [Fact(DisplayName = "Insert and remove street fair record in database")]
+        public async Task InsertAndRemoveStreetFairRecordInDatabaseTest()
+        {
+            var context = _databaseFixture.CreateContext;
+
+            var unitOfWork = new UnitOfWork(context);
+            var repository = new StreetFairRepository(context);
+
+            var builder = StreetFairBuilder.CreateStreetFair();
+
+            await repository.AddAsync(builder);
+            await unitOfWork.CommitAsync();
+
+            repository.Remove(builder);
+            var deleted = await unitOfWork.CommitAsync();
+
+            Assert.True(deleted);
         }
     }
 }

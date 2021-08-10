@@ -132,7 +132,7 @@ namespace Market.Unit.Tests.Services
 
             _streetFairRepositoryMock.Setup(setup => setup.GetByIdAsync(requestId.Id))
                 .ReturnsAsync(StreetFairEntityBuilder.StreetFair);
-            
+
             var service = new StreetFairService(
                 _streetFairRepositoryMock.Object,
                 _unitOfWorkMock.Object,
@@ -142,7 +142,7 @@ namespace Market.Unit.Tests.Services
 
             Assert.True(result);
         }
-        
+
         [Fact(DisplayName = "Update street fair when record not exist")]
         public async Task UpdateStreetFairWhenRecordNotExistTest()
         {
@@ -155,6 +155,39 @@ namespace Market.Unit.Tests.Services
                 _domainNotificationMock.Object
             );
             var result = await service.UpdateStreetFairAsync(requestId, request);
+
+            Assert.False(result);
+        }
+
+        [Fact(DisplayName = "Remove street fair when record exist")]
+        public async Task RemoveStreetFairWhenRecordExistTest()
+        {
+            var request = StreetFairBuilder.StreetFairRegisterRequest;
+
+            _streetFairRepositoryMock.Setup(setup => setup.GetByRegisterAsync(request.Register))
+                .ReturnsAsync(StreetFairEntityBuilder.StreetFair);
+
+            var service = new StreetFairService(
+                _streetFairRepositoryMock.Object,
+                _unitOfWorkMock.Object,
+                _domainNotificationMock.Object
+            );
+            var result = await service.RemoveStreetFairAsync(request);
+
+            Assert.True(result);
+        }
+
+        [Fact(DisplayName = "Remove street fair when record not exist")]
+        public async Task RemoveStreetFairWhenRecordNotExistTest()
+        {
+            var request = StreetFairBuilder.StreetFairRegisterRequest;
+
+            var service = new StreetFairService(
+                _streetFairRepositoryMock.Object,
+                _unitOfWorkMock.Object,
+                _domainNotificationMock.Object
+            );
+            var result = await service.RemoveStreetFairAsync(request);
 
             Assert.False(result);
         }

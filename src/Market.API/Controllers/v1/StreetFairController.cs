@@ -108,7 +108,7 @@ namespace Market.API.Controllers.v1
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> DeleteStreetFairAsync(
+        public async Task<ActionResult> RemoveStreetFairAsync(
             [FromQuery] StreetFairRegisterRequestViewModel request
         )
         {
