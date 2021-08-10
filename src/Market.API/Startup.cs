@@ -87,9 +87,9 @@ namespace Market.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Market API v1"));
             }
-
+            
             app.UseRouting();
-            app.UseAuthorization();
+            app.UseLogMiddleware();
             app.UseExceptionHandler(new ExceptionHandlerOptions
             {
                 ExceptionHandler = new ErrorHandlerMiddleware(env).Invoke

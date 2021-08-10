@@ -10,7 +10,6 @@ services:
     ports:
       - '5001:80'
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
       - DB_URL=market-db
       - DB_PORT=5432
       - DB_NAME=market
