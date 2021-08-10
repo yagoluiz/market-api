@@ -4,7 +4,7 @@ using System.IO.Compression;
 using System.Reflection;
 using Market.API.Extensions;
 using Market.API.Filters;
-using Market.API.Middleware;
+using Market.API.Middlewares;
 using Market.API.Services;
 using Market.API.Services.Interfaces;
 using Market.Domain.Interfaces.Notification;

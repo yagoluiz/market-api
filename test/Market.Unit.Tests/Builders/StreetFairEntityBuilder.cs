@@ -6,7 +6,7 @@ namespace Market.Unit.Tests.Builders
 {
     public static class StreetFairEntityBuilder
     {
-        public static StreetFair CreateStreetFair =>
+        public static StreetFair StreetFair =>
             new Faker<StreetFair>()
                 .CustomInstantiator(faker => new StreetFair(
                     faker.Random.Word(),

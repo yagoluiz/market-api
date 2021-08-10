@@ -75,7 +75,7 @@ namespace Market.API.Services
 
         public async Task CreateStreetFairAsync(StreetFairCreateRequestViewModel request)
         {
-            var streetFair = await _streetFairRepository.GetByRegister(request.Register);
+            var streetFair = await _streetFairRepository.GetByRegisterAsync(request.Register);
 
             if (streetFair != null)
             {
@@ -113,8 +113,9 @@ namespace Market.API.Services
             var streetFair = await _streetFairRepository.GetByIdAsync(requestId.Id);
 
             if (streetFair == null) return false;
-            
+
             _streetFairRepository.Update(new StreetFair(
+                requestId.Id,
                 request.Name,
                 request.CensusSector,
                 request.CensusGrouping,
@@ -133,7 +134,7 @@ namespace Market.API.Services
                 request.AddressDetails
             ));
             await _unitOfWork.CommitAsync();
-            
+
             return true;
         }
     }

@@ -6,9 +6,10 @@ namespace Market.Integration.Tests.Builders
 {
     public static class StreetFairBuilder
     {
-        public static StreetFair CreateStreetFair =>
+        public static StreetFair CreateStreetFair(int id = 0) =>
             new Faker<StreetFair>()
                 .CustomInstantiator(faker => new StreetFair(
+                    id: id,
                     faker.Random.Word(),
                     faker.Random.Int(10000, 999999),
                     faker.Random.Int(10000, 999999),

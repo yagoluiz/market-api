@@ -89,22 +89,57 @@ namespace Market.Integration.Tests.Repositories
             Assert.Contains(streetFairs, streetFair => streetFair.Region5 == region5Filter);
         }
 
-        [Fact(DisplayName = "Insert and get street fair by register records in database")]
-        public async Task InsertAndGetAllStreetFairByRegisterInDatabaseTest()
+        [Fact(DisplayName = "Insert and get street fair by id record in database")]
+        public async Task InsertAndGetStreetFairByIdRecordInDatabaseTest()
         {
             var context = _databaseFixture.CreateContext;
 
             var unitOfWork = new UnitOfWork(context);
             var repository = new StreetFairRepository(context);
 
-            var builder = StreetFairBuilder.CreateStreetFair;
+            var builder = StreetFairBuilder.CreateStreetFair();
 
             await repository.AddAsync(builder);
             await unitOfWork.CommitAsync();
 
-            var streetFair = await repository.GetByRegister(builder.Register);
+            var streetFair = await repository.GetByIdAsync(builder.Id);
 
             Assert.NotNull(streetFair);
+        }
+        
+        [Fact(DisplayName = "Insert and get street fair by register record in database")]
+        public async Task InsertAndGetStreetFairByRegisterRecordInDatabaseTest()
+        {
+            var context = _databaseFixture.CreateContext;
+
+            var unitOfWork = new UnitOfWork(context);
+            var repository = new StreetFairRepository(context);
+
+            var builder = StreetFairBuilder.CreateStreetFair();
+
+            await repository.AddAsync(builder);
+            await unitOfWork.CommitAsync();
+
+            var streetFair = await repository.GetByRegisterAsync(builder.Register);
+
+            Assert.NotNull(streetFair);
+        }
+        
+        [Fact(DisplayName = "Insert and update street fair record in database")]
+        public async Task InsertAndUpdateStreetFairRecordInDatabaseTest()
+        {
+            var context = _databaseFixture.CreateContext;
+
+            var unitOfWork = new UnitOfWork(context);
+            var repository = new StreetFairRepository(context);
+
+            await repository.AddAsync(StreetFairBuilder.CreateStreetFair());
+            await unitOfWork.CommitAsync();
+
+            repository.Update(StreetFairBuilder.CreateStreetFair(1));
+            var updated = await unitOfWork.CommitAsync();
+
+            Assert.True(updated);
         }
     }
 }

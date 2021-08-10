@@ -83,7 +83,7 @@ namespace Market.Unit.Tests.Services
         }
 
         [Fact(DisplayName = "Create street fair when register not exist")]
-        public async Task CreateStreetFairWhenRegisterNotExist()
+        public async Task CreateStreetFairWhenRegisterNotExistTest()
         {
             var request = StreetFairBuilder.StreetFairCreateRequest;
 
@@ -98,12 +98,12 @@ namespace Market.Unit.Tests.Services
         }
 
         [Fact(DisplayName = "Create street fair when register exist")]
-        public async Task CreateStreetFairWhenRegisterExist()
+        public async Task CreateStreetFairWhenRegisterExistTest()
         {
             var request = StreetFairBuilder.StreetFairCreateRequest;
 
-            _streetFairRepositoryMock.Setup(setup => setup.GetByRegister(request.Register))
-                .ReturnsAsync(StreetFairEntityBuilder.CreateStreetFair);
+            _streetFairRepositoryMock.Setup(setup => setup.GetByRegisterAsync(request.Register))
+                .ReturnsAsync(StreetFairEntityBuilder.StreetFair);
 
             _domainNotificationMock.Setup(setup => setup.Notifications)
                 .Returns(new List<NotificationMessage>
@@ -122,6 +122,41 @@ namespace Market.Unit.Tests.Services
             _domainNotificationMock.Verify(domainNotification => domainNotification.AddNotification(
                 DomainError.RegisterAlreadyExists.ToString(),
                 "Register already exists."), Times.Once);
+        }
+
+        [Fact(DisplayName = "Update street fair when record exist")]
+        public async Task UpdateStreetFairWhenRecordExistTest()
+        {
+            var requestId = StreetFairBuilder.StreetFairIdRequest;
+            var request = StreetFairBuilder.StreetFairUpdateRequest;
+
+            _streetFairRepositoryMock.Setup(setup => setup.GetByIdAsync(requestId.Id))
+                .ReturnsAsync(StreetFairEntityBuilder.StreetFair);
+            
+            var service = new StreetFairService(
+                _streetFairRepositoryMock.Object,
+                _unitOfWorkMock.Object,
+                _domainNotificationMock.Object
+            );
+            var result = await service.UpdateStreetFairAsync(requestId, request);
+
+            Assert.True(result);
+        }
+        
+        [Fact(DisplayName = "Update street fair when record not exist")]
+        public async Task UpdateStreetFairWhenRecordNotExistTest()
+        {
+            var requestId = StreetFairBuilder.StreetFairIdRequest;
+            var request = StreetFairBuilder.StreetFairUpdateRequest;
+
+            var service = new StreetFairService(
+                _streetFairRepositoryMock.Object,
+                _unitOfWorkMock.Object,
+                _domainNotificationMock.Object
+            );
+            var result = await service.UpdateStreetFairAsync(requestId, request);
+
+            Assert.False(result);
         }
     }
 }

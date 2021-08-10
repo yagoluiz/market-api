@@ -42,7 +42,13 @@ namespace Market.Infra.Repositories
                 .PaginateAsync(page, limit);
         }
 
-        public async Task<StreetFair> GetByRegister(string register)
+        public async Task<StreetFair> GetByIdAsync(int id)
+        {
+            return await DbSet.AsNoTracking()
+                .FirstOrDefaultAsync(streetFair => streetFair.Id == id);
+        }
+
+        public async Task<StreetFair> GetByRegisterAsync(string register)
         {
             return await DbSet.AsNoTracking()
                 .FirstOrDefaultAsync(streetFair => streetFair.Register == register);

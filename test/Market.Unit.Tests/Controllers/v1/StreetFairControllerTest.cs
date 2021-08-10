@@ -33,7 +33,7 @@ namespace Market.Unit.Tests.Controllers.v1
             Assert.IsType<OkObjectResult>(result.Result);
         }
 
-        [Fact(DisplayName = "Create street fairs when is success")]
+        [Fact(DisplayName = "Create street fair when is success")]
         public async Task CreateStreetFairWhenIsSuccessTest()
         {
             var request = StreetFairBuilder.StreetFairCreateRequest;
@@ -42,6 +42,34 @@ namespace Market.Unit.Tests.Controllers.v1
             var result = await controller.CreateStreetFairAsync(request);
 
             Assert.IsType<CreatedResult>(result);
+        }
+
+        [Fact(DisplayName = "Update street fair when is success")]
+        public async Task UpdateStreetFairWhenIsSuccessTest()
+        {
+            var requestId = StreetFairBuilder.StreetFairIdRequest;
+            var request = StreetFairBuilder.StreetFairUpdateRequest;
+
+            _streetFairServiceMock.Setup(setup =>
+                    setup.UpdateStreetFairAsync(requestId, request))
+                .ReturnsAsync(true);
+
+            var controller = new StreetFairController(_streetFairServiceMock.Object);
+            var result = await controller.UpdateStreetFairAsync(requestId, request);
+
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact(DisplayName = "Update street fair when not is success")]
+        public async Task UpdateStreetFairWhenIsNotSuccessTest()
+        {
+            var requestId = StreetFairBuilder.StreetFairIdRequest;
+            var request = StreetFairBuilder.StreetFairUpdateRequest;
+
+            var controller = new StreetFairController(_streetFairServiceMock.Object);
+            var result = await controller.UpdateStreetFairAsync(requestId, request);
+
+            Assert.IsType<NotFoundResult>(result);
         }
     }
 }

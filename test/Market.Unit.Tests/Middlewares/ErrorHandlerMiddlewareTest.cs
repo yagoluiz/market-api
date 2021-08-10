@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Market.API.Middleware;
+using Market.API.Middlewares;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

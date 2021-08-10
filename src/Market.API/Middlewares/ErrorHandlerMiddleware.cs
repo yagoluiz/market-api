@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 
-namespace Market.API.Middleware
+namespace Market.API.Middlewares
 {
     public class ErrorHandlerMiddleware
     {
