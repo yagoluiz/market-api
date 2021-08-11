@@ -15,12 +15,15 @@ using Market.Infra.Contexts;
 using Market.Infra.Repositories;
 using Market.Infra.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
@@ -70,6 +73,7 @@ namespace Market.API
                 options.IncludeXmlComments(xmlPath);
             });
 
+            AddHealthChecks(services);
             AddDatabaseContext(services);
             AddRepositoriesScopes(services);
             AddServicesScopes(services);
@@ -87,14 +91,31 @@ namespace Market.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Market API v1"));
             }
-            
+
             app.UseRouting();
             app.UseLogMiddleware();
             app.UseExceptionHandler(new ExceptionHandlerOptions
             {
                 ExceptionHandler = new ErrorHandlerMiddleware(env).Invoke
             });
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health", new HealthCheckOptions
+                {
+                    ResultStatusCodes =
+                    {
+                        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                        [HealthStatus.Degraded] = StatusCodes.Status200OK,
+                        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+                    }
+                });
+            });
+        }
+
+        private void AddHealthChecks(IServiceCollection services)
+        {
+            services.AddHealthChecks().AddNpgSql(DatabaseConnectionString);
         }
 
         private void AddDatabaseContext(IServiceCollection services)
