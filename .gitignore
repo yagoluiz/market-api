@@ -274,7 +274,7 @@ __pycache__/
 # Cake - Uncomment if you are using it
 # tools/
 
-## Visual Studio Code
+# Visual Studio Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -284,3 +284,6 @@ __pycache__/
 # Coverage test
 coverage/
 coverage.opencover.xml
+
+# Logs
+logs/
