@@ -1,0 +1,120 @@
+# localhost 5000 / docker 5001
+
+# curl -X 'GET' 
+#  'http://localhost:5000/api/v1/street-fair' 
+#  -H 'accept: application/json'
+GET http://localhost:5000/api/v1/street-fair
+accept: application/json
+Content-Type: application/json
+
+###
+
+# curl -X 'GET' 
+#  'http://localhost:5000/api/v1/street-fair?page=1&limit=10&name=lageado' 
+#  -H 'accept: application/json'
+GET http://localhost:5000/api/v1/street-fair?page=1&limit=10&name=lageado
+accept: application/json
+Content-Type: application/json
+
+###
+
+# curl -X 'POST' 
+#  'http://localhost:5000/api/v1/street-fair' 
+#  -H 'accept: application/json' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "name": "VILA",
+#  "censusSector": 12345,
+#  "censusGrouping": 67890,
+#  "districtCode": 10,
+#  "district": "VILA",
+#  "subCityHallCode": 10,
+#  "subCityHall": "VILA",
+#  "region5": "LESTE",
+#  "region8": "LESTE 1",
+#  "register": "1234-0",
+#  "address": "AV VILA",
+#  "addressNumber": null,
+#  "neighborhood": "VILA",
+#  "addressDetails": null,
+#  "longitude": -46551234,
+#  "latitude": -23551234
+#}'
+POST http://localhost:5000/api/v1/street-fair
+accept: application/json
+Content-Type: application/json
+
+{
+  "name": "VILA",
+  "censusSector": 12345,
+  "censusGrouping": 67890,
+  "districtCode": 10,
+  "district": "VILA",
+  "subCityHallCode": 10,
+  "subCityHall": "VILA",
+  "region5": "LESTE",
+  "region8": "LESTE 1",
+  "register": "1234-0",
+  "address": "AV VILA",
+  "addressNumber": null,
+  "neighborhood": "VILA",
+  "addressDetails": null,
+  "longitude": -46551234,
+  "latitude": -23551234
+}
+
+###
+
+# curl -X 'PUT' 
+#  'http://localhost:5000/api/v1/street-fair/1' 
+#  -H 'accept: application/json' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "name": "VILA",
+#  "censusSector": 12345,
+#  "censusGrouping": 67890,
+#  "districtCode": 10,
+#  "district": "VILA",
+#  "subCityHallCode": 10,
+#  "subCityHall": "VILA",
+#  "region5": "LESTE",
+#  "region8": "LESTE 1",
+#  "address": "AV VILA",
+#  "addressNumber": null,
+#  "neighborhood": "VILA",
+#  "addressDetails": null,
+#  "longitude": -46551234,
+#  "latitude": -23551234
+#}'
+PUT http://localhost:5000/api/v1/street-fair/881
+accept: application/json
+Content-Type: application/json
+
+{
+  "name": "VILA",
+  "censusSector": 12345,
+  "censusGrouping": 67890,
+  "districtCode": 10,
+  "district": "VILA",
+  "subCityHallCode": 10,
+  "subCityHall": "VILA",
+  "region5": "LESTE",
+  "region8": "LESTE 1",
+  "address": "AV VILA",
+  "addressNumber": null,
+  "neighborhood": "VILA",
+  "addressDetails": null,
+  "longitude": -46551234,
+  "latitude": -23551234
+}
+
+###
+
+# curl -X 'DELETE' 
+#  'http://localhost:5000/api/v1/street-fair/1234-0' 
+#  -H 'accept: application/json'
+DELETE http://localhost:5000/api/v1/street-fair/1234-0
+accept: application/json
+Content-Type: application/json
+
+###
