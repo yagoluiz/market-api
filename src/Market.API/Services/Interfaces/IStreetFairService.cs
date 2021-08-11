@@ -20,8 +20,6 @@ namespace Market.API.Services.Interfaces
             StreetFairUpdateRequestViewModel request
         );
 
-        Task<bool> RemoveStreetFairAsync(
-            StreetFairRegisterRequestViewModel request
-        );
+        Task<bool> RemoveStreetFairAsync(StreetFairRegisterRequestViewModel request);
     }
 }

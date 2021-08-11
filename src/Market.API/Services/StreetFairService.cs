@@ -79,8 +79,10 @@ namespace Market.API.Services
 
             if (streetFair != null)
             {
-                _domainNotification.AddNotification(DomainError.RegisterAlreadyExists.ToString(),
-                    "Register already exists.");
+                _domainNotification.AddNotification(
+                    DomainError.RegisterAlreadyExists.ToString(),
+                    "Register already exists."
+                );
                 return;
             }
 
@@ -146,7 +148,7 @@ namespace Market.API.Services
 
             _streetFairRepository.Remove(streetFair);
             await _unitOfWork.CommitAsync();
-            
+
             return true;
         }
     }

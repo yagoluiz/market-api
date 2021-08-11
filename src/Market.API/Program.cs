@@ -22,7 +22,7 @@ namespace Market.API
                     var configuration = builder
                         .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true)
                         .Build();
-                
+
                     Log.Logger = new LoggerConfiguration()
                         .ReadFrom.Configuration(configuration)
                         .CreateLogger();

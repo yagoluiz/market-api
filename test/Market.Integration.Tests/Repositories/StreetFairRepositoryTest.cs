@@ -156,9 +156,9 @@ namespace Market.Integration.Tests.Repositories
             await unitOfWork.CommitAsync();
 
             repository.Remove(builder);
-            var deleted = await unitOfWork.CommitAsync();
+            var removed = await unitOfWork.CommitAsync();
 
-            Assert.True(deleted);
+            Assert.True(removed);
         }
     }
 }

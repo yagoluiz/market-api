@@ -108,8 +108,7 @@ namespace Market.Unit.Tests.Services
             _domainNotificationMock.Setup(setup => setup.Notifications)
                 .Returns(new List<NotificationMessage>
                 {
-                    new(DomainError.RegisterAlreadyExists.ToString(),
-                        "Register already exists.")
+                    new(DomainError.RegisterAlreadyExists.ToString(), "Register already exists.")
                 });
 
             var service = new StreetFairService(
@@ -120,8 +119,9 @@ namespace Market.Unit.Tests.Services
             await service.CreateStreetFairAsync(request);
 
             _domainNotificationMock.Verify(domainNotification => domainNotification.AddNotification(
-                DomainError.RegisterAlreadyExists.ToString(),
-                "Register already exists."), Times.Once);
+                    DomainError.RegisterAlreadyExists.ToString(),
+                    "Register already exists."), Times.Once
+            );
         }
 
         [Fact(DisplayName = "Update street fair when record exist")]

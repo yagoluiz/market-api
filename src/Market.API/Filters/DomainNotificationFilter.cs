@@ -24,7 +24,7 @@ namespace Market.API.Filters
         {
             if (!context.ModelState.IsValid || _domainNotification.HasNotifications)
             {
-                var messageNotification = !context.ModelState.IsValid
+                var notificationMessage = !context.ModelState.IsValid
                     ? context.ModelState.Values
                         .Select(entry => new NotificationMessage(
                             DomainError.ValidationRequest.ToString(),
@@ -39,7 +39,7 @@ namespace Market.API.Filters
                     Title = "Bad Request",
                     Status = StatusCodes.Status400BadRequest,
                     Instance = context.HttpContext.Request.Path.Value,
-                    Detail = JsonSerializer.Serialize(messageNotification)
+                    Detail = JsonSerializer.Serialize(notificationMessage)
                 };
 
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;

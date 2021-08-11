@@ -80,7 +80,7 @@ namespace Market.API.Controllers.v1
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateStreetFairAsync(
             [FromQuery] StreetFairIdRequestViewModel requestId,
@@ -93,7 +93,7 @@ namespace Market.API.Controllers.v1
 
             return NoContent();
         }
-        
+
         /// <summary>
         ///     Delete street fair
         /// </summary>
@@ -106,15 +106,15 @@ namespace Market.API.Controllers.v1
         [HttpDelete("{register}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> RemoveStreetFairAsync(
             [FromQuery] StreetFairRegisterRequestViewModel request
         )
         {
-            var streetFairDeleted = await _streetFairService.RemoveStreetFairAsync(request);
+            var streetFairRemoved = await _streetFairService.RemoveStreetFairAsync(request);
 
-            if (streetFairDeleted == false) return NotFound();
+            if (streetFairRemoved == false) return NotFound();
 
             return NoContent();
         }
