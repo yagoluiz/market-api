@@ -1,5 +1,7 @@
 # Market API
 
+![](https://github.com/yagoluiz/market-api/workflows/Docker%20Image%20CI/badge.svg)
+
 API responsible for managing markets.
 
 ## Project Structure
