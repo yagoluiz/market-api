@@ -283,4 +283,4 @@ __pycache__/
 
 # Coverage test
 coverage/
-lcov.info
+coverage.opencover.xml

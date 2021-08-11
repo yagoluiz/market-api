@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Market.Domain.Interfaces.Notification;
+using Market.Domain.Interfaces.Notifications;
 
-namespace Market.Domain.Notification
+namespace Market.Domain.Notifications
 {
     public class DomainNotification : IDomainNotification
     {

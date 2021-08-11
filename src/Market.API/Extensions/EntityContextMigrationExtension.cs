@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Market.Infra.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Market.API.Extensions
 {
+    [ExcludeFromCodeCoverage]
     public static class EntityContextMigrationExtension
     {
         public static void UseDbContextMigration(this IApplicationBuilder builder)

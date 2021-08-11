@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Market.Domain.Notification;
+using Market.Domain.Notifications;
 
-namespace Market.Domain.Interfaces.Notification
+namespace Market.Domain.Interfaces.Notifications
 {
     public interface IDomainNotification
     {

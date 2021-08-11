@@ -8,7 +8,7 @@ using Market.API.ViewModels.Response.StreetFair;
 using Market.Domain.Entities;
 using Market.Domain.Entities.Filters;
 using Market.Domain.Enums;
-using Market.Domain.Interfaces.Notification;
+using Market.Domain.Interfaces.Notifications;
 using Market.Domain.Interfaces.Repositories;
 using Market.Domain.Interfaces.UnitOfWork;
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace Market.Domain.Notification
+namespace Market.Domain.Notifications
 {
     public class NotificationMessage
     {

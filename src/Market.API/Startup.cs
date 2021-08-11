@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
@@ -7,10 +8,10 @@ using Market.API.Filters;
 using Market.API.Middlewares;
 using Market.API.Services;
 using Market.API.Services.Interfaces;
-using Market.Domain.Interfaces.Notification;
+using Market.Domain.Interfaces.Notifications;
 using Market.Domain.Interfaces.Repositories;
 using Market.Domain.Interfaces.UnitOfWork;
-using Market.Domain.Notification;
+using Market.Domain.Notifications;
 using Market.Infra.Contexts;
 using Market.Infra.Repositories;
 using Market.Infra.UnitOfWork;
@@ -29,6 +30,7 @@ using Microsoft.OpenApi.Models;
 
 namespace Market.API
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)

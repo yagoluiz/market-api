@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ using Market.Infra.Contexts;
 
 namespace Market.Infra.Seeds
 {
+    [ExcludeFromCodeCoverage]
     public static class StreetFairSeed
     {
         public static void RunSeed(EntityContext context)

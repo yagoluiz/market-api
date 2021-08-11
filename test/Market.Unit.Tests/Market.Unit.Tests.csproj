@@ -7,11 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoBogus" Version="2.13.1"/>
-        <PackageReference Include="Bogus" Version="33.0.2"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0"/>
-        <PackageReference Include="Moq" Version="4.16.1"/>
-        <PackageReference Include="xunit" Version="2.4.1"/>
+        <PackageReference Include="AutoBogus" Version="2.13.1" />
+        <PackageReference Include="Bogus" Version="33.0.2" />
+        <PackageReference Include="coverlet.msbuild" Version="3.1.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+        <PackageReference Include="Moq" Version="4.16.1" />
+        <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -23,8 +27,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Market.API\Market.API.csproj"/>
-        <ProjectReference Include="..\..\src\Market.Domain\Market.Domain.csproj"/>
+        <ProjectReference Include="..\..\src\Market.API\Market.API.csproj" />
+        <ProjectReference Include="..\..\src\Market.Domain\Market.Domain.csproj" />
     </ItemGroup>
 
 </Project>

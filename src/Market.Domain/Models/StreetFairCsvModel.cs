@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using CsvHelper.Configuration.Attributes;
 
 namespace Market.Domain.Models
 {
+    [ExcludeFromCodeCoverage]
     public class StreetFairCsvModel
     {
         [Index(1)] [Name("LONG")] public int Longitude { get; set; }
