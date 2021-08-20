@@ -73,7 +73,7 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude
 
 Run the command in the **root** project.
 
-### Relatório de Cobertura
+### Coverage Report
 
 Install [Report Generator](https://danielpalme.github.io/ReportGenerator) CLI tool:
 
