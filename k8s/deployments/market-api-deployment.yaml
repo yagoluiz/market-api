@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: market-api
+  namespace: market
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: market-api
+  template:
+    metadata:
+      labels:
+        app: market-api
+    spec:
+      containers:
+        - name: market-api
+          image: yagoluiz/market-api:v1
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+            requests:
+              cpu: "100m"

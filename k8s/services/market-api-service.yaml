@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: market-api
+  namespace: market
+spec:
+  selector:
+    app: market-api
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer

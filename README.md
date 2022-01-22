@@ -31,7 +31,7 @@ The project uses the MVC layered pattern.
 
 ## Instructions for run project
 
-Run project via Docker, via Visual Studio (F5 or CTRL + F5), Visual Studio Code (tasks project) or CLI.
+Run project via Docker, Kubernetes (minikube), via Visual Studio (F5 or CTRL + F5), Visual Studio Code (tasks project) or CLI.
 
 ### Docker
 
@@ -53,6 +53,24 @@ dotnet watch run
 
 ```bash
 dotnet test -t
+```
+
+### Kubernetes
+
+- Run minikube
+
+```bash
+minikube start
+```
+
+```bash
+minikube dashboard
+```
+
+- Run files
+
+```bash
+sh k8s/deploy.sh
 ```
 
 ## Endpoints
