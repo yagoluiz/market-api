@@ -33,12 +33,6 @@ The project uses the MVC layered pattern.
 
 Run project via Docker, Kubernetes (minikube), via Visual Studio (F5 or CTRL + F5), Visual Studio Code (tasks project) or CLI.
 
-### Docker
-
-```bash
-docker-compose up -d
-```
-
 ### .NET CLI
 
 - Run project
@@ -53,6 +47,12 @@ dotnet watch run
 
 ```bash
 dotnet test -t
+```
+
+### Docker
+
+```bash
+docker-compose up -d
 ```
 
 ### Kubernetes
