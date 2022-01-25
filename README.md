@@ -75,9 +75,17 @@ sh k8s/deploy.sh
 
 ## Endpoints
 
+- Docker/.NET cli
+
 Curl's file: [endpoints.http](endpoints.http).
 
 For more information visit swagger: *http://localhost:5000/swagger/index.html* or *http://localhost:5001/swagger/index.html (Docker)*.
+
+- Kubernetes (minikube)
+
+```bash
+minikube service --url market-api --namespace=market
+```
 
 ## Tests
 
