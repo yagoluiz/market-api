@@ -58,8 +58,18 @@ For more information visit swagger: *http://localhost:5000/swagger/index.html* o
 
 - Kubernetes (minikube)
 
+**LoadBalancer**
+
+Create access tunnel:
+
 ```bash
-minikube service --url market-api --namespace=market
+minikube tunnel
+```
+
+Find created external IP:
+
+```bash
+kubectl get svc -n market
 ```
 
 ## Tests
